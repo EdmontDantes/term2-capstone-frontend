@@ -1,7 +1,10 @@
 import React from 'react'
 import MetArtTile from './MetArtTile'
+import { clone, cloneDeep } from "lodash" 
+
 const MetArtMain = (props) => {
 
+const savedArrayProps = cloneDeep(props.MetArtApiDataToComponent)
     return (
       <div className="ui raised very padded container segment">
 
@@ -9,13 +12,13 @@ const MetArtMain = (props) => {
         <div className="ui five cards" style={{paddingBottom: '15px'}}>
     
       {console.log('props for MetArtMain', props.MetArtApiDataToComponent)}
-      {props.MetArtApiDataToComponent.map((individualObjectArt) => {
+   
+      {savedArrayProps.map((individualObjectArt) => {
         return(
-          <MetArtTile key={individualObjectArt.objectID} image={individualObjectArt.primaryImageSmall}></MetArtTile>
+          <MetArtTile key={individualObjectArt.objectID} image={individualObjectArt.primaryImageSmall} title={individualObjectArt.title} artist={individualObjectArt.artistDisplayName}></MetArtTile>
 
         )
       })}
-        
         
         </div>
         <div className="ui pagination menu" style={{paddingTop: '15px'}}>

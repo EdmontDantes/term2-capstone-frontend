@@ -2,62 +2,62 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Search from './Search';
 import MetArtMain from './MetArtMain';
+
+import { clone } from "lodash" 
 class App extends Component {
   state = {
     searchTermMetApi: '',
-    MetArtApiData: [],
-    toggle: false
+    MetArtApiData: []
   };
-  searchMetApi = (event, value) => {
+  searchMetApi = async (event, value) => {
+    // event.preventDefault()
     // console.log('value', value);
-    axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${value}`)
-    .then((foundAPIIds) => {
-      let arrayToRequestOfApiIds = [...foundAPIIds.data.objectIDs]
-      let fullListedData = []
+    const fullListedData = []
+    await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${value}`)
+    .then(async (foundAPIIds) => {
+      const arrayToRequestOfApiIds = [...foundAPIIds.data.objectIDs]
       // console.log(arrayToRequestOfApiIds);
-      if(arrayToRequestOfApiIds.length >= 80) {
+      if(foundAPIIds.data.objectIDs.length >= 80) {
         for(let i = 0; i < 80; i++) {
-              axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
+              await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
                     .then((individualFullObject) => {
-                      fullListedData.unshift(individualFullObject.data)
+                      console.log('Axios IndividualFullObject Console.log', individualFullObject)
+                      fullListedData.push(individualFullObject.data)
                     }).catch((error) => console.log(error))
         }
-      } else if (arrayToRequestOfApiIds.length < 80) {
+      } else if (foundAPIIds.data.objectIDs.length < 80) {
         for(let i = 0; i < arrayToRequestOfApiIds.length; i++) {
-          axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
+          await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
                 .then((individualFullObject) => {
-                  fullListedData.unshift(individualFullObject.data)
+                  console.log('Axios IndividualFullObject Console.log', individualFullObject)
+                  fullListedData.push(individualFullObject.data)
                 }).catch((error) => console.log(error))
     }
       }
-      console.log(fullListedData);
-      this.setState(
-        {
-          searchTermMetApi: value,
-          MetArtApiData: fullListedData,
-          toggle: true
-        },
-        () => {
-          console.log('state', this.state);
-        }
-      );
+      console.log('HELLO AFTER AXOIS PROMISES', fullListedData);
     })
     .catch((error) => console.log(error))
+    console.log("After axios await promises", fullListedData);
+    this.setState({
+      searchTermMetApi: value,
+      MetArtApiData: clone(fullListedData)
+
+      })
   };
   // componentDidMount() {
   //   console.log('Mount App');
   //   console.log(this.state);
   // }
-  componentDidUpdate() {
-    if(this.state.MetArtApiData.length) {
-      this.setState({
-        toggle: true
-      })
-    }
-  }
+  // componentDidUpdate() {
+  //   if(this.state.MetArtApiData.length) {
+  //     this.setState({
+  //       toggle: true
+  //     })
+  //   }
+  // }
 
   render() {
-    console.log('in render', this.state.searchTermMetApi);
+    console.log('in render', this.state.MetArtApiData);
     return (
       <Fragment>
         <div className='ui top fixed inverted menu'>
