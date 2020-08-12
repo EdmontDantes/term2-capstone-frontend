@@ -7,7 +7,7 @@ class Search extends Component {
   constructor(){
     super()
     this.state={
-      searchTermMetApi: ''
+      searchTermMetApiSearchComponent: ''
 
     }
   }
@@ -35,17 +35,17 @@ class Search extends Component {
         <div className="field" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
           <input 
                 type='text' 
-                defaultValue={this.state.searchTermMetApi} 
+                defaultValue={this.state.searchTermMetApiSearchComponent} 
                 onChange={
                   this.onChangeSearchValue.bind(this)
 
                           }/>
 
         <Button 
-                type='submit' 
+                
                 className='ui red button' 
                 onClick={() => {
-                                this.props.searchMetApi.bind(this.state.searchTermMetApi)
+                                this.props.searchMetApi(this.state.searchTermMetApiSearchComponent)
                           }} children='Search Art' />
   
         </div>

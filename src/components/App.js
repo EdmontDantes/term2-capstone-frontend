@@ -12,14 +12,17 @@ class App extends Component {
   searchMetApi(value) {
       this.setState({
         searchTermMetApi: value
+      }, () => {
+        console.log(this.state);
       })  
-      console.log(this.state);
+      
     }
   
 
 
   componentDidMount() {
     console.log('Mount App');
+    console.log(this.state);
   }
 
   render() {
