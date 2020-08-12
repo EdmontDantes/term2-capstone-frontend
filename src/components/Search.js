@@ -13,7 +13,9 @@ class Search extends Component {
   }
 
   onChangeSearchValue(event) {
-    let newSearchTerm = event.target.value
+    // event.preventDefault()
+    let newSearchTerm = event.target.value.trim()
+    console.log(newSearchTerm)
     this.setState({
       searchTermMetApi: newSearchTerm
     }, () => {
@@ -33,16 +35,17 @@ class Search extends Component {
         <div className="field" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
           <input 
                 type='text' 
-                value={this.state.searchTermMetApi} 
+                defaultValue={this.state.searchTermMetApi} 
                 onChange={
-                                this.onChangeSearchValue
+                  this.onChangeSearchValue.bind(this)
+
                           }/>
 
         <Button 
                 type='submit' 
                 className='ui red button' 
                 onClick={() => {
-                                this.props.searchMetApi()
+                                this.props.searchMetApi.bind(this.state.searchTermMetApi)
                           }} children='Search Art' />
   
         </div>

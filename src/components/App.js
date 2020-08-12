@@ -9,13 +9,11 @@ class App extends Component {
     MetArtApiIDs: [] 
   }
 
-  searchMetApi(event) {
+  searchMetApi(value) {
       this.setState({
-        searchTermMetApi: event.target.value
-      }, () => {
-        
-        console.log(this.state.searchTermMetApi);
+        searchTermMetApi: value
       })  
+      console.log(this.state);
     }
   
 
