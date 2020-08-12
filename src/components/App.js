@@ -1,11 +1,24 @@
 import React, {Component, Fragment} from 'react'
 import axios from 'axios'
 import Search from './Search'
+import MetArtMain from './MetArtMain'
 
 class App extends Component {
   state = {
-    searchTerm: ''
+    searchTermMetApi: '',
+    MetArtApiIDs: [] 
   }
+
+  searchMetApi(event) {
+      this.setState({
+        searchTermMetApi: event.target.value
+      }, () => {
+        
+        console.log(this.state.searchTermMetApi);
+      })  
+    }
+  
+
 
   componentDidMount() {
     console.log('Mount App');
@@ -39,7 +52,7 @@ class App extends Component {
         </div>
       </div>
     </div>
-    <div className="ui main text container">
+    <div className="ui main container">
       <h1 className="ui header">Semantic UI Fixed Template</h1>
       <p>This is a basic fixed menu template using fixed size containers.</p>
       <p>
@@ -47,8 +60,8 @@ class App extends Component {
         single column layouts
       </p>
 
-      <Search />
-
+      <Search searchMetApi={this.searchMetApi}/>
+      <MetArtMain />
 
 
     </div>
