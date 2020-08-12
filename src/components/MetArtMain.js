@@ -1,38 +1,20 @@
-import React, {Component} from 'react'
+import React from 'react'
 import MetArtTile from './MetArtTile'
-class MetArtMain extends Component {
+const MetArtMain = (props) => {
 
-  state = {
-
-  }
-
-  componentDidMount() {
-    console.log('Mount MetArtMain')
-  }
-
-  render() {
-    console.log('Render MetArtMain');
     return (
       <div className="ui raised very padded container segment">
 
         <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
         <div className="ui five cards" style={{paddingBottom: '15px'}}>
-        
-        <MetArtTile />
-        <MetArtTile />
+    
+      {console.log('props for MetArtMain', props.MetArtApiDataToComponent)}
+      {props.MetArtApiDataToComponent.map((individualObjectArt) => {
+        return(
+          <MetArtTile key={individualObjectArt.objectID} image={individualObjectArt.primaryImageSmall}></MetArtTile>
 
-        <MetArtTile />
-
-        <MetArtTile />
-
-        <MetArtTile />
-
-        <MetArtTile />
-
-        <MetArtTile />
-
-        <MetArtTile />
-
+        )
+      })}
         
         
         </div>
@@ -41,7 +23,7 @@ class MetArtMain extends Component {
         </div>
       </div>
       )
-  }
+  
 
 }
 

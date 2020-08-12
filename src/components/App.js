@@ -5,7 +5,8 @@ import MetArtMain from './MetArtMain';
 class App extends Component {
   state = {
     searchTermMetApi: '',
-    MetArtApiData: []
+    MetArtApiData: [],
+    toggle: false
   };
   searchMetApi = (event, value) => {
     // console.log('value', value);
@@ -33,7 +34,8 @@ class App extends Component {
       this.setState(
         {
           searchTermMetApi: value,
-          MetArtApiData: fullListedData
+          MetArtApiData: fullListedData,
+          toggle: true
         },
         () => {
           console.log('state', this.state);
@@ -46,6 +48,14 @@ class App extends Component {
   //   console.log('Mount App');
   //   console.log(this.state);
   // }
+  componentDidUpdate() {
+    if(this.state.MetArtApiData.length) {
+      this.setState({
+        toggle: true
+      })
+    }
+  }
+
   render() {
     console.log('in render', this.state.searchTermMetApi);
     return (
@@ -94,7 +104,8 @@ class App extends Component {
             single column layouts
           </p>
           <Search searchMetApi={this.searchMetApi} />
-          <MetArtMain />
+          {this.state.toggle ? (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} />) : (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} />) }
+          
         </div>
         <div className='ui inverted vertical footer segment'>
           <div className='ui center aligned container'>
