@@ -1,17 +1,22 @@
 import React from 'react'
 import MetArtTile from './MetArtTile'
-import { clone, cloneDeep } from "lodash" 
+import { clone } from "lodash" 
 
 const MetArtMain = (props) => {
 
-const savedArrayProps = cloneDeep(props.MetArtApiDataToComponent)
+const savedArrayProps = props.MetArtApiDataToComponent
     return (
       <div className="ui raised very padded container segment">
 
-        <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
+      <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
+      {(props.toggleMetArtLoading === true) ?
+      (
+      <div className="ui active dimmer">
+        <div className="ui indeterminate text loader">Preparing Results</div>
+
+    </div>) : (<br />)}
         <div className="ui five cards" style={{paddingBottom: '15px'}}>
     
-      {console.log('props for MetArtMain', props.MetArtApiDataToComponent)}
    
       {savedArrayProps.map((individualObjectArt) => {
         return(

@@ -2,7 +2,6 @@ import React from 'react'
 
 
 const MetArtTile = (props) => {
-  console.log('Hello MetArtTile')
   return (
       <div className="card">
   
