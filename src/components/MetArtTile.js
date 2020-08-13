@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import ButtonCustom from './ButtonCustom'
 
 const MetArtTile = (props) => {
 
@@ -24,12 +25,12 @@ const MetArtTile = (props) => {
       <br />
         <div className="header"> {props.title}</div>
       </div>
-      <div className="extra">
+      <div className="inverted extra" style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
       <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>More Info</Button>}
+      trigger={<ButtonCustom className={'ui button'} children={'Info'} />}
     >
       <Modal.Header>{props.title}</Modal.Header>
       <Modal.Content image>
@@ -56,6 +57,9 @@ const MetArtTile = (props) => {
         </Button>
       </Modal.Actions>
     </Modal>
+    <ButtonCustom className={'ui green button'} children={'like'} />
+    <ButtonCustom className={'ui red button'} children={'Dislike'} />
+
       </div>
       
       </div>
