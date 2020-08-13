@@ -5,8 +5,7 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      searchTermMetApiSearchComponent: '',
-      searchTermMetApi: ''
+      searchTermNASAImagesApi: ''
     };
   }
   onChangeSearchValue = (event) => {
@@ -15,7 +14,7 @@ class Search extends Component {
     console.log(newSearchTerm);
     this.setState(
       {
-        searchTermMetApi: newSearchTerm
+        searchTermNASAImagesApi: newSearchTerm
       },
       () => {
         console.log(this.state);
@@ -24,7 +23,7 @@ class Search extends Component {
   };
   sendSearch = (event, value) => {
     event.preventDefault();
-    this.props.searchMetApi(event, value);
+    this.props.searchNASAImagesApi(event, value);
   };
   componentDidMount() {}
   render() {
@@ -39,7 +38,7 @@ class Search extends Component {
       >
         <form
           onSubmit={(event) => {
-            this.sendSearch(event, this.state.searchTermMetApi);
+            this.sendSearch(event, this.state.searchTermNASAImagesApi);
           }}
           className='ui form'
         >
@@ -54,7 +53,7 @@ class Search extends Component {
           >
             <input
               type='text'
-              value={this.state.searchTermMetApi}
+              value={this.state.searchNASAImagesApi}
               onChange={this.onChangeSearchValue}
             />
             <Button

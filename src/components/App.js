@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Search from './Search';
+import SearchMETArt from './SearchMETArt';
 import MetArtMain from './MetArtMain';
+import SearchNASAImages from './SearchNASAImages'
+import NASAImagesMain from './NASAImagesMain'
 import Footer from './Footer'
 
 
@@ -10,7 +12,10 @@ class App extends Component {
   state = {
     searchTermMetApi: '',
     MetArtApiData: [],
-    toggleMetArtLoading: false
+    toggleMetArtLoading: false,
+    searchTermNASAImagesApi: '',
+    NASAImagesApiData: [],
+    toggleNASAImagesLoading: false
   };
 
   loadingShowMetArtAPIResults = () => {
@@ -81,15 +86,13 @@ class App extends Component {
       console.log('HELLO AFTER AXOIS PROMISES', fullListedData);
       
       this.setState({
-         searchTermMetApi: value,
-         MetArtApiData: fullListedData,
-         toggleMetArtLoading: false
-         })
+        searchTermMetApi: value,
+        MetArtApiData: fullListedData,
+        toggleMetArtLoading: false
+        })
     })
     .catch((error) => console.log(error))
 
-    } else {
-      
     }
   // console.log("After axios await promises", fullListedData);
   };
@@ -105,8 +108,82 @@ class App extends Component {
   //   }
   // }
 
+
+  loadingShowNASAImagesResults = () => {
+    this.setState({
+      toggleNASAImagesLoading: true
+    })
+  }
+
+  searchNASAImagesApi = async (event, value) => {
+    if(value !== '') {
+      event.preventDefault()
+      // console.log('value', value);
+      const fullListedDataNASA = []
+      await axios.get(`https://images-api.nasa.gov/search?q=${value}`)
+      .then(async (foundData) => {
+        this.loadingShowNASAImagesResults()
+        const arrayFoundData = [...foundData.data.collection.items.slice(0,20)]
+        for(let i = 0; i < arrayFoundData.length; i++) {
+
+                  await axios.get(`${arrayFoundData[i].href}`)
+                      .then(async (collectedDataToModOriginal) => {
+                        // console.log('CollectedDataJSON', collectedDataToModOriginal);
+                        // arrayFoundData[i].href = []
+                        const individualPieceToBeModded = fullListedDataNASA.push(collectedDataToModOriginal.data)
+                        return individualPieceToBeModded
+                      })
+                      .then(async (fullDataToMake) => {
+                        fullListedDataNASA.push(fullDataToMake)
+                      })
+                      .catch((error) => console.log(error))
+                    }
+      //   if(arrayFoundData.length >= 80) {
+      //     for(let i = 0; i < 80; i++) {
+      //           await axios.get(`${arrayFoundData[i].href}`)
+      //                 .then(async (collectedDataToModOriginal) => {
+      //                   console.log('CollectedDataJSON', collectedDataToModOriginal);
+      //                   arrayFoundData[i].href = []
+      //                   const individualPieceToBeModded = fullListedData.push(collectedDataToModOriginal.data)
+      //                   return individualPieceToBeModded
+      //                 })
+      //                 .then(async (fullDataToMake) => {
+      //                   fullListedData.push(fullDataToMake)
+      //                 })
+      //                 .catch((error) => console.log(error))
+      //     }
+      //   } else if (arrayFoundData.length < 80) {
+      //     for(let i = 0; i < arrayFoundData.length; i++) {
+      //       await axios.get(`${arrayFoundData[i].href}`)
+      //       .then(async (collectedDataToModOriginal) => {
+      //         console.log('CollectedDataJSON', collectedDataToModOriginal);
+      //         arrayFoundData[i].href = []
+      //         const individualPieceToBeModded = fullListedData.push(collectedDataToModOriginal.data)
+      //         return individualPieceToBeModded
+      //       })
+      //       .then(async (fullDataToMake) => {
+      //         fullListedData.push(fullDataToMake)
+      //       })
+      //       .catch((error) => console.log(error))
+      // }
+        // }
+      console.log('HELLO AFTER AXOIS PROMISES FOR NASA', fullListedDataNASA);
+      
+      this.setState({
+        searchTermNASAImagesApi: value,
+        NASAImagesApiData: fullListedDataNASA,
+        toggleNASAImagesLoading: false
+        })
+    })
+    .catch((error) => console.log(error))
+
+    }
+  // console.log("After axios await promises", fullListedData);
+  
+  }
+
   render() {
-    console.log('in render', this.state.MetArtApiData);
+    console.log('in render', this.state.NASAImagesApiData);
     return (
       <Fragment>
         <div className='ui top fixed inverted menu'>
@@ -146,7 +223,7 @@ class App extends Component {
         <div className='ui main container' style={{marginTop: '80px'}} id="ArtWidget">
           <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
-          <Search searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
+          <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
           {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />}
           
           
@@ -154,8 +231,9 @@ class App extends Component {
         <div className='ui main container' style={{marginTop: '80px'}} id="NASAWidget">
         <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
-        <Search searchMetApi={this.searchMetApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
-        {this.state.toggleMetArtLoading ? (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />) : (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} />) }
+        <SearchNASAImages searchNASAImagesApi={this.searchNASAImagesApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
+        {<NASAImagesMain NASAImagesApiData={this.state.NASAImagesApiData} toggleNASAImagesLoading={this.state.toggleNASAImagesLoading} />}
+    
         
       </div>
         <Footer />
