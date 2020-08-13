@@ -52,37 +52,44 @@ const savedArrayProps = props.NASAImagesApiData
     
         {console.log('IN NASAMain', props.NASAImagesApiData)}
    
-      {savedArrayProps.forEach((individualArrayOfMedia, idx) => {
-        console.log(individualArrayOfMedia);
-        return(
+      {props.NASAImagesApiData.map((individualArrayOfMedia, idx) => {
+        console.log('image needed',individualArrayOfMedia.links[0].href);
+        
+          return(
+            <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
+          )
+       
 
-          individualArrayOfMedia.forEach((singleItemOfArrayMedia, idx) => {
-            console.log("Single Items of Array ", singleItemOfArrayMedia);
 
-            if(singleItemOfArrayMedia.endsWith('.jpg') && singleItemOfArrayMedia.includes('orig')) {
-              return(
+        // return(
 
-                <NASATile key={idx} children={(<img src={singleItemOfArrayMedia} alt="..." style={{cursor: 'pointer'}} />)}></NASATile>
+        //   individualArrayOfMedia.forEach((singleItemOfArrayMedia, idx) => {
+        //     console.log("Single Items of Array ", singleItemOfArrayMedia);
+
+        //     if(singleItemOfArrayMedia.endsWith('.jpg') && singleItemOfArrayMedia.includes('orig')) {
+        //       return(
+
+        //         <NASATile key={idx} children={(<img src={singleItemOfArrayMedia} alt="..." style={{cursor: 'pointer'}} />)}></NASATile>
                 
     
-              )
-            } else if(singleItemOfArrayMedia.endsWith('.mp4') && singleItemOfArrayMedia.includes('small')) {
-              return(
+        //       )
+        //     } else if(singleItemOfArrayMedia.endsWith('.mp4') && singleItemOfArrayMedia.includes('small')) {
+        //       return(
 
 
-                <NASATile key={idx} children={(<div className="ui embed" data-url={singleItemOfArrayMedia}></div>)}></NASATile>
+        //         <NASATile key={idx} children={(<div className="ui embed" data-url={singleItemOfArrayMedia}></div>)}></NASATile>
 
             
     
-              )
-            }
+        //       )
+        //     }
 
 
   
-          })
+        //   })
 
 
-        )
+        // )
 
         
       })}

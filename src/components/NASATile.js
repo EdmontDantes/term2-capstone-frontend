@@ -6,7 +6,7 @@ const NASATile = (props) => {
       <div className="card">
   
       <div className="image">
-{props.children}
+      <img src={props.image} alt="..." style={{cursor: 'pointer'}} />
       </div>
       <div className="extra">
       <div className="header" style={{fontSize: '16px', color: 'black'}}> {props.artist}</div>

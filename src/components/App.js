@@ -119,25 +119,25 @@ class App extends Component {
     if(value !== '') {
       event.preventDefault()
       // console.log('value', value);
-      const fullListedDataNASA = []
+      // const fullListedDataNASA = []
       await axios.get(`https://images-api.nasa.gov/search?q=${value}`)
       .then(async (foundData) => {
         this.loadingShowNASAImagesResults()
-        const arrayFoundData = [...foundData.data.collection.items.slice(0,20)]
-        for(let i = 0; i < arrayFoundData.length; i++) {
+        const fullListedDataNASA = [...foundData.data.collection.items.slice(0,40)]
+        // for(let i = 0; i < arrayFoundData.length; i++) {
 
-                  await axios.get(`${arrayFoundData[i].href}`)
-                      .then(async (collectedDataToModOriginal) => {
-                        // console.log('CollectedDataJSON', collectedDataToModOriginal);
-                        // arrayFoundData[i].href = []
-                        const individualPieceToBeModded = fullListedDataNASA.push(collectedDataToModOriginal.data)
-                        return individualPieceToBeModded
-                      })
-                      .then(async (fullDataToMake) => {
-                        fullListedDataNASA.push(fullDataToMake)
-                      })
-                      .catch((error) => console.log(error))
-                    }
+        //           await axios.get(`${arrayFoundData[i].href}`)
+        //               .then(async (collectedDataToModOriginal) => {
+        //                 // console.log('CollectedDataJSON', collectedDataToModOriginal);
+        //                 // arrayFoundData[i].href = []
+        //                 const individualPieceToBeModded = fullListedDataNASA.push(collectedDataToModOriginal.data)
+        //                 return individualPieceToBeModded
+        //               })
+        //               .then(async (fullDataToMake) => {
+        //                 fullListedDataNASA.push(fullDataToMake)
+        //               })
+        //               .catch((error) => console.log(error))
+        //             }
       //   if(arrayFoundData.length >= 80) {
       //     for(let i = 0; i < 80; i++) {
       //           await axios.get(`${arrayFoundData[i].href}`)
