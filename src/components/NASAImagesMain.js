@@ -53,11 +53,14 @@ const savedArrayProps = props.NASAImagesApiData
         {console.log('IN NASAMain', props.NASAImagesApiData)}
    
       {props.NASAImagesApiData.map((individualArrayOfMedia, idx) => {
-        console.log('image needed',individualArrayOfMedia.links[0].href);
-        
-          return(
-            <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
-          )
+        // console.log('image needed',individualArrayOfMedia.links[0].href);
+          if(individualArrayOfMedia.links !== undefined) {
+            
+            return(
+              <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
+            )
+
+          }
        
 
 
