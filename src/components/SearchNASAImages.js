@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
+import ButtonCustom from './ButtonCustom';
 class Search extends Component {
   constructor() {
     super();
@@ -56,7 +56,7 @@ class Search extends Component {
               value={this.state.searchNASAImagesApi}
               onChange={this.onChangeSearchValue}
             />
-            <Button
+            <ButtonCustom
               type={this.props.btnType}
               className={this.props.btnClassName}
               children={this.props.btnChildren}

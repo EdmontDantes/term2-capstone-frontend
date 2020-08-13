@@ -186,6 +186,10 @@ class App extends Component {
     console.log('in render', this.state.NASAImagesApiData);
     return (
       <Fragment>
+
+
+
+
         <div className='ui top fixed inverted menu'>
           <div className='ui container'>
             <a className='item' href='#root'>

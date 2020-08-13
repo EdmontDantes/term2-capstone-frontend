@@ -54,7 +54,17 @@ const savedArrayProps = props.MetArtApiDataToComponent
    
       {savedArrayProps.map((individualObjectArt) => {
         return(
-          <MetArtTile key={individualObjectArt.objectID} image={individualObjectArt.primaryImageSmall} title={individualObjectArt.title} artist={individualObjectArt.artistDisplayName}></MetArtTile>
+          <MetArtTile 
+                      key={individualObjectArt.objectID} 
+                      image={individualObjectArt.primaryImageSmall} 
+                      title={individualObjectArt.title} 
+                      artist={individualObjectArt.artistDisplayName} 
+                      imageOriginal={individualObjectArt.primaryImage}
+                      objectDate={individualObjectArt.objectDate}
+                      artistDisplayName={individualObjectArt.artistDisplayName}
+                      dimensions={individualObjectArt.dimensions}
+                      medium={individualObjectArt.medium}
+                      ></MetArtTile>
 
         )
       })}
