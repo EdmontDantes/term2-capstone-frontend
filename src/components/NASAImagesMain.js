@@ -38,7 +38,7 @@ const MetArtMain = (props) => {
 
 const savedArrayProps = props.NASAImagesApiData
     return (
-      <div className="ui raised very padded container segment">
+      <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
       <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
       {(props.toggleNASAImagesLoading === true) ?
@@ -48,7 +48,7 @@ const savedArrayProps = props.NASAImagesApiData
         <div className="ui indeterminate text loader">Preparing Results</div>
 
     </div>) : (<br />)}
-        <div className="ui three cards" style={{paddingBottom: '15px'}}>
+        <div className="ui cards" style={{paddingBottom: '15px'}}>
     
         {console.log('IN NASAMain', props.NASAImagesApiData)}
    

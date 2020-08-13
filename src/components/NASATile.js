@@ -3,7 +3,7 @@ import React from 'react'
 
 const NASATile = (props) => {
   return (
-      <div className="card">
+      <div className="ui centered card">
   
       <div className="image">
       <img src={props.image} alt="..." style={{cursor: 'pointer'}} />

@@ -220,7 +220,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div className='ui main container' style={{marginTop: '80px'}} id="ArtWidget">
+        <div className='ui container' style={{marginTop: '80px', width: '95%'}} id="ArtWidget">
           <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
           <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
@@ -228,7 +228,7 @@ class App extends Component {
           
           
         </div>
-        <div className='ui main container' style={{marginTop: '80px'}} id="NASAWidget">
+        <div className='ui container' style={{marginTop: '80px', width: '95%'}} id="NASAWidget">
         <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
         <SearchNASAImages searchNASAImagesApi={this.searchNASAImagesApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
