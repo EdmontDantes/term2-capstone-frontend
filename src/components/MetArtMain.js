@@ -41,7 +41,7 @@ const savedArrayProps = props.MetArtApiDataToComponent
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
       <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
-      {(props.toggleMetArtLoading === true) ?
+      {(props.toggleMetArtLoading === true && props.toggleMetArtLoading.length !==0) ?
       (
       <div className="ui active dimmer">
 
