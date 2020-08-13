@@ -58,9 +58,9 @@ class Search extends Component {
               onChange={this.onChangeSearchValue}
             />
             <Button
-              type='submit'
-              className='ui red button'
-              children='Search Art'
+              type={this.props.btnType}
+              className={this.props.btnClassName}
+              children={this.props.btnChildren}
             />
           </div>
         </form>

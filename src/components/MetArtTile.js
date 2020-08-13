@@ -6,7 +6,7 @@ const MetArtTile = (props) => {
       <div className="card">
   
       <div className="image">
-        <img src={props.image} alt="..." />
+        <img src={props.image} alt="..." style={{cursor: 'pointer'}} />
       </div>
       <div className="extra">
       <div className="header" style={{fontSize: '16px', color: 'black'}}> {props.artist}</div>

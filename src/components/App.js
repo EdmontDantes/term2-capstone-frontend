@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Search from './Search';
 import MetArtMain from './MetArtMain';
+import Footer from './Footer'
+
 
 import { clone } from "lodash" 
 class App extends Component {
@@ -78,11 +80,11 @@ class App extends Component {
             <div className='ui simple dropdown item'>
               Dropdown <i className='dropdown icon'></i>
               <div className='menu'>
-                <a className='item' href='#root'>
-                  Link Item
+                <a className='item' href='#ArtWidget'>
+                  Art
                 </a>
-                <a className='item' href='#root'>
-                  Link Item
+                <a className='item' href='#NASAWidget'>
+                  NASA
                 </a>
                 <div className='divider'></div>
                 <div className='header'>Header Item</div>
@@ -104,41 +106,21 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div className='ui main container'>
-          <h1 className='ui header'>Semantic UI Fixed Template</h1>
-          <p>
-            This is a basic fixed menu template using fixed size containers.
-          </p>
-          <p>
-            A text container is used for the main container, which is useful for
-            single column layouts
-          </p>
-          <Search searchMetApi={this.searchMetApi} />
+        <div className='ui main container' style={{marginTop: '80px'}} id="ArtWidget">
+          <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
+
+          <Search searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
           {this.state.toggleMetArtLoading ? (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />) : (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} />) }
           
         </div>
-        <div className='ui inverted vertical footer segment'>
-          <div className='ui center aligned container'>
-            <div className='ui inverted section divider'></div>
-            <div className='ui horizontal inverted small divided link list'>
-              <a
-                className='item'
-                href='https://github.com/EdmontDantes/term2-capstone-backend'
-              >
-                Backend github
-              </a>
-              <a
-                className='item'
-                href='https://github.com/EdmontDantes/term2-capstone-frontend'
-              >
-                Frontend github
-              </a>
-              <a className='item' href='https://github.com/EdmontDantes'>
-                Bogdan Kowaltchook
-              </a>
-            </div>
-          </div>
-        </div>
+        <div className='ui main container' style={{marginTop: '80px'}} id="NASAWidget">
+        <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
+
+        <Search searchMetApi={this.searchMetApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
+        {this.state.toggleMetArtLoading ? (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />) : (<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} />) }
+        
+      </div>
+        <Footer />
       </Fragment>
     );
   }
