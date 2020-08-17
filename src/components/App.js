@@ -6,6 +6,7 @@ import SearchNASAImages from './SearchNASAImages'
 import NASAImagesMain from './NASAImagesMain'
 import Footer from './Footer'
 import HeaderCustom from './Header'
+import MetArtMainLikes from './MetArtMainLikes'
 import { 
         Accordion, 
         Icon
@@ -16,6 +17,7 @@ class App extends Component {
     searchTermMetApi: '',
     MetArtApiData: [],
     toggleMetArtLoading: false,
+    MetArtLikes: [],
     searchTermNASAImagesApi: '',
     NASAImagesApiData: [],
     toggleNASAImagesLoading: false,
@@ -119,28 +121,59 @@ class App extends Component {
   }
 
 
+  helperGetAllMetArtLikes = async () => {
 
+    try {
+      console.log("Axios with proxy setup in react package.json works as expected");
+      axios.get('http://localhost:8505/api/content/art-likes').then((gottenBEDataArtLikesFullList) => {
+        console.log('successful get all art-likes');
+        this.setState({
+          MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes
+        })
+      }).catch((error) => console.log(error));
 
+    } catch (error) {
+      console.log(error);
+    }
+  }
     
 
-  handleArtLikeSubmit = (ArtObject) => {
-
+  handleArtLikeSubmit = async (event, ArtObject) => {
+    event.preventDefault()
     const axiosConfig = {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*'
       }
     };
+    try {
 
-    axios.put('/api/content/art-likes', ArtObject, axiosConfig)
-          .then(() => {
-                    console.log("Axios with proxy setup in react package.json works as expected");
-          })
-          .catch((error) => console.log(error))
+      await axios.put('http://localhost:8505/api/content/art-likes', ArtObject, axiosConfig)
+            .then(async () => {
+
+                    try {
+                      console.log("Axios with proxy setup in react package.json works as expected");
+                      axios.get('http://localhost:8505/api/content/art-likes').then((gottenBEDataArtLikesFullList) => {
+                        console.log('successful get all art-likes');
+                        this.setState({
+                          MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes
+                        })
+                      }).catch((error) => console.log(error));
+
+                    } catch (error) {
+                      console.log(error);
+                    }
+
+            })
+            .catch((error) => console.log(error))
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
-
+    console.log('App render State MetArtLikes', this.state.MetArtLikes)
     const { activeIndex } = this.state
     return (
       <Fragment>
@@ -148,7 +181,7 @@ class App extends Component {
 
       <HeaderCustom />
 
-      <Accordion fluid styled style={{marginTop: '150px'}}>
+      <Accordion fluid styled style={{marginTop: '150px', marginBottom: '150px'}}>
 
 
       <Accordion.Title
@@ -163,6 +196,7 @@ class App extends Component {
 
 
       <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
+      {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes} />}
       {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
 
 

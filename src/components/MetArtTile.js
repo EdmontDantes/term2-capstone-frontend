@@ -57,8 +57,8 @@ const MetArtTile = (props) => {
         </Button>
       </Modal.Actions>
     </Modal>
-    <ButtonCustom className={'ui green button'} children={'like'} onClick={() => {
-      props.handleArtLikeSubmit(props.fullSingleDataArtObject)
+    <ButtonCustom className={'ui green button'} children={'like'} onClick={(event) => {
+      props.handleArtLikeSubmit(event, props.fullSingleDataArtObject)
     }}/>
     <ButtonCustom className={'ui red button'} children={'Dislike'} />
 
