@@ -1,40 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
 import MetArtTile from './MetArtTile'
-import PropTypes from 'prop-types'
-import { clone } from "lodash" 
-import { Accordion, Icon } from 'semantic-ui-react'
-
-
-// class MetArtMain extends Component {
-//   // componentWillMount() {
-//   //   this.props.MetArtApiDataToComponent
-//   // }
-
-//   render() {
-//     return (
-//             <div className="ui raised very padded container segment">
-      
-//             <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
-
-//               <div className="ui five cards" style={{paddingBottom: '15px'}}>
-          
-//               {console.log('IN METARTMAIN', this.props.MetArtApiDataToComponent)}
-         
-//             {this.props.MetArtApiDataToComponent.map((individualObjectArt) => {
-//               return(
-//                 <MetArtTile key={individualObjectArt.objectID} image={individualObjectArt.primaryImageSmall} title={individualObjectArt.title} artist={individualObjectArt.artistDisplayName}></MetArtTile>
-      
-//               )
-//             })}
-              
-//               </div>
-//               <div className="ui pagination menu" style={{paddingTop: '15px'}}>
-      
-//               </div>
-//             </div>
-//             )
-// }
-// }
 
 const MetArtMain = (props) => {
 

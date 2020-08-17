@@ -5,17 +5,11 @@ import MetArtMain from './MetArtMain';
 import SearchNASAImages from './SearchNASAImages'
 import NASAImagesMain from './NASAImagesMain'
 import Footer from './Footer'
+import HeaderCustom from './Header'
 import { 
         Accordion, 
-        Icon,  
-        Container,
-        Divider,
-        Dropdown,
-        Header,
-        Image,
-        List,
-        Menu,
-        Segment } from 'semantic-ui-react'
+        Icon
+        } from 'semantic-ui-react'
 
 class App extends Component {
   state = {
@@ -129,27 +123,9 @@ class App extends Component {
     const { activeIndex } = this.state
     return (
       <Fragment>
-
-
-
-
-
-
       <div>
-      <Menu fixed='top' inverted>
-        <Container>
-          <Menu.Item as='a'>Home</Menu.Item>
-  
-          <Dropdown item simple text='Navigate'>
-            <Dropdown.Menu>
-              <Dropdown.Item as='a' href='#ArtWidget'>Met Art</Dropdown.Item>
-              <Dropdown.Item as='a' href='#NASAWidget'>NASA</Dropdown.Item>
-              <Dropdown.Item as='a' href='#NumbersWidget'>Numbers Trivia</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Container>
-      </Menu>
-  
+
+      <HeaderCustom />
 
       <Accordion fluid styled style={{marginTop: '150px'}}>
 

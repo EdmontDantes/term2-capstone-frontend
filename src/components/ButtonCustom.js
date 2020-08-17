@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 
 const ButtonCustom = (props) => {
   const {className, onClick, type, children} = props;
