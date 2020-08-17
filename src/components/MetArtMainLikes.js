@@ -1,21 +1,25 @@
 import React from 'react'
-import MetArtTile from './MetArtTile'
+import MetArtTileLikes from './MetArtTileLikes'
+import MetArtMainFullScreenSlideShow from './MetArtMainFullScreenSlideShow'
+
 
 const MetArtMainLikes = (props) => {
+
 
 const savedArrayProps = props.MetArtLikesArray
     return (
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
-      <h1>Your The Metropolitan Museum of Art Collection API Likes and Slideshow Controls</h1>
+      <MetArtMainFullScreenSlideShow />
 
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     
 
       {savedArrayProps.map((individualObjectArt) => {
         return(
-          <MetArtTile 
+          <MetArtTileLikes 
                       key={individualObjectArt.data.objectID} 
+                      objectID={individualObjectArt.data.objectID} 
                       image={individualObjectArt.data.primaryImageSmall} 
                       title={individualObjectArt.data.title} 
                       artist={individualObjectArt.data.artistDisplayName} 
@@ -26,7 +30,7 @@ const savedArrayProps = props.MetArtLikesArray
                       medium={individualObjectArt.data.medium}
                       fullSingleDataArtObject={individualObjectArt}
                       handleArtDisLikeSubmit={props.handleArtDisLikeSubmit}
-                      ></MetArtTile>
+                      ></MetArtTileLikes>
 
         )
       })}

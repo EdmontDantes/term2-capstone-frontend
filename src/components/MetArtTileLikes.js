@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import ButtonCustom from './ButtonCustom'
 
-const MetArtTile = (props) => {
+const MetArtTileLikes = (props) => {
 
   const [open, setOpen] = React.useState(false)
   return (
@@ -57,10 +57,10 @@ const MetArtTile = (props) => {
         </Button>
       </Modal.Actions>
     </Modal>
-    <ButtonCustom className={'ui green button'} children={'like'} onClick={(event) => {
-      props.handleArtLikeSubmit(event, props.fullSingleDataArtObject)
-    }}/>
-
+    
+    <ButtonCustom className={'ui red button'} children={'Dislike'} onClick={(event) => {
+      props.handleArtDisLikeSubmit(event, props.objectID)
+    }} />
 
       </div>
       
@@ -72,4 +72,4 @@ const MetArtTile = (props) => {
   )
 }
 
-export default MetArtTile
+export default MetArtTileLikes

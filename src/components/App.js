@@ -167,6 +167,26 @@ class App extends Component {
     }
   }
 
+  handleArtDisLikeSubmit = async (event, objectID) => {
+    event.preventDefault()
+    const axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+
+    try {
+      await axios.delete(`http://localhost:8505/api/content/art-likes/${objectID}`, axiosConfig)
+            .then(this.helperGetAllMetArtLikes()
+            )
+            .catch((error) => console.log(error))
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   componentDidMount() {
     this.helperGetAllMetArtLikes()
   }
@@ -207,7 +227,7 @@ class App extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeArtIndex === 1}>
         
-        {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes}  handleArtLikeSubmit={this.handleArtLikeSubmit} />}
+        {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes}  handleArtDisLikeSubmit={this.handleArtDisLikeSubmit} />}
         
         </Accordion.Content>
       
