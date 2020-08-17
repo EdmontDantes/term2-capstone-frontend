@@ -5,7 +5,7 @@ import MetArtMain from './MetArtMain';
 import SearchNASAImages from './SearchNASAImages'
 import NASAImagesMain from './NASAImagesMain'
 import Footer from './Footer'
-
+import { Accordion, Icon } from 'semantic-ui-react'
 
 import { clone } from "lodash" 
 class App extends Component {
@@ -15,8 +15,19 @@ class App extends Component {
     toggleMetArtLoading: false,
     searchTermNASAImagesApi: '',
     NASAImagesApiData: [],
-    toggleNASAImagesLoading: false
+    toggleNASAImagesLoading: false,
+    activeIndex: 0
   };
+
+
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeIndex } = this.state
+    const newIndex = activeIndex === index ? -1 : index
+
+    this.setState({ activeIndex: newIndex })
+  }
+
 
   loadingShowMetArtAPIResults = () => {
     this.setState({
@@ -188,11 +199,49 @@ class App extends Component {
   }
 
   render() {
+
+    const { activeIndex } = this.state
+
     console.log('in render', this.state.NASAImagesApiData);
     return (
       <Fragment>
 
+      <Accordion fluid styled style={{marginTop: '200px'}}>
 
+
+        <Accordion.Title
+          active={activeIndex === 1}
+          index={1}
+          onClick={this.handleClick}
+        >
+          <Icon name='dropdown' />
+          The Metropolitan Museum of Art Collection API
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 1}>
+
+
+        <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
+        {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />}
+
+
+        </Accordion.Content>
+
+        <Accordion.Title
+          active={activeIndex === 2}
+          index={2}
+          onClick={this.handleClick}
+        >
+          <Icon name='dropdown' />
+          NASA Images API search view
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 2}>
+
+
+        <SearchNASAImages searchNASAImagesApi={this.searchNASAImagesApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
+        {<NASAImagesMain NASAImagesApiData={this.state.NASAImagesApiData} toggleNASAImagesLoading={this.state.toggleNASAImagesLoading} />}
+
+        </Accordion.Content>
+      </Accordion>
 
 
         <div className='ui top fixed inverted menu'>
@@ -230,18 +279,12 @@ class App extends Component {
           </div>
         </div>
         <div className='ui container' style={{marginTop: '80px', width: '95%'}} id="ArtWidget">
-          <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
-          <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
-          {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />}
-          
           
         </div>
         <div className='ui container' style={{marginTop: '80px', width: '95%'}} id="NASAWidget">
-        <h1 className='ui header'>The Metropolitan Museum of Art Collection API Widget</h1>
 
-        <SearchNASAImages searchNASAImagesApi={this.searchNASAImagesApi} btnType={'submit'} btnClassName={'ui blue button'} btnChildren={'Search NASA'}/>
-        {<NASAImagesMain NASAImagesApiData={this.state.NASAImagesApiData} toggleNASAImagesLoading={this.state.toggleNASAImagesLoading} />}
+
     
         
       </div>

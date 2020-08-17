@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import MetArtTile from './MetArtTile'
 import PropTypes from 'prop-types'
 import { clone } from "lodash" 
+import { Accordion, Icon } from 'semantic-ui-react'
+
 
 // class MetArtMain extends Component {
 //   // componentWillMount() {
