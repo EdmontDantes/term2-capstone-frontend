@@ -1,30 +1,30 @@
 import React from 'react'
-
+import {  
+  Container,
+  Divider,
+  Image,
+  List,
+  Segment } from 'semantic-ui-react'
 
 const Footer = () => {
   return(
-    <div className='ui inverted vertical footer segment'>
-    <div className='ui center aligned container'>
-      <div className='ui inverted section divider'></div>
-      <div className='ui horizontal inverted small divided link list'>
-        <a
-          className='item'
-          href='https://github.com/EdmontDantes/term2-capstone-backend'
-        >
-          Backend github
-        </a>
-        <a
-          className='item'
-          href='https://github.com/EdmontDantes/term2-capstone-frontend'
-        >
-          Frontend github
-        </a>
-        <a className='item' href='https://github.com/EdmontDantes'>
+    <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
+    <Container textAlign='center'>
+
+      <Divider inverted section />
+      <List horizontal inverted divided link size='small'>
+        <List.Item as='a' href='https://github.com/EdmontDantes/term2-capstone-backend'>
+          Backend
+        </List.Item>
+        <List.Item as='a' href='https://github.com/EdmontDantes/term2-capstone-frontend'>
+          FrontEnd
+        </List.Item>
+        <List.Item as='a' href='https://github.com/EdmontDantes'>
           Bogdan Kowaltchook
-        </a>
-      </div>
-    </div>
-  </div>
+        </List.Item>
+      </List>
+    </Container>
+  </Segment>
   )
 }
 
