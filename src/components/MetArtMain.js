@@ -17,8 +17,7 @@ const savedArrayProps = props.MetArtApiDataToComponent
     </div>) : (<br />)}
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     
-        {console.log('IN METARTMAIN', props.MetArtApiDataToComponent)}
-   
+
       {savedArrayProps.map((individualObjectArt) => {
         return(
           <MetArtTile 
@@ -37,9 +36,7 @@ const savedArrayProps = props.MetArtApiDataToComponent
       })}
         
         </div>
-        <div className="ui pagination menu" style={{paddingTop: '15px'}}>
 
-        </div>
       </div>
       )
   
@@ -48,7 +45,3 @@ const savedArrayProps = props.MetArtApiDataToComponent
 
 
 export default MetArtMain
-
-// MetArtMain.propTypes = {
-//   MetArtApiDataToComponent: PropTypes.array.isRequired
-// }

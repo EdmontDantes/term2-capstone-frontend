@@ -27,19 +27,12 @@ const MetArtMain = (props) => {
               <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
             )
 
-          } else {
-            
-            return(
-              <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
-            )
           }
 
       })}
         
         </div>
-        <div className="ui pagination menu" style={{paddingTop: '15px'}}>
 
-        </div>
       </div>
       )
   
