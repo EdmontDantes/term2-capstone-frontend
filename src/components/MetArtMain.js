@@ -30,6 +30,8 @@ const savedArrayProps = props.MetArtApiDataToComponent
                       artistDisplayName={individualObjectArt.artistDisplayName}
                       dimensions={individualObjectArt.dimensions}
                       medium={individualObjectArt.medium}
+                      fullSingleDataArtObject={individualObjectArt}
+                      handleArtLikeSubmit={props.handleArtLikeSubmit}
                       ></MetArtTile>
 
         )

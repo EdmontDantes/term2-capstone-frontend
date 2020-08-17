@@ -118,6 +118,27 @@ class App extends Component {
   
   }
 
+
+
+
+    
+
+  handleArtLikeSubmit = (ArtObject) => {
+
+    const axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+
+    axios.put('/api/content/art-likes', ArtObject, axiosConfig)
+          .then(() => {
+                    console.log("Axios with proxy setup in react package.json works as expected");
+          })
+          .catch((error) => console.log(error))
+  }
+
   render() {
 
     const { activeIndex } = this.state
@@ -142,7 +163,7 @@ class App extends Component {
 
 
       <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
-      {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} />}
+      {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
 
 
       </Accordion.Content>
