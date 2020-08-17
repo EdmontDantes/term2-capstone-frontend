@@ -21,7 +21,8 @@ class App extends Component {
     searchTermNASAImagesApi: '',
     NASAImagesApiData: [],
     toggleNASAImagesLoading: false,
-    activeIndex: 0
+    activeIndex: 0,
+    activeArtIndex: 0,
   };
 
 
@@ -31,6 +32,14 @@ class App extends Component {
     const newIndex = activeIndex === index ? -1 : index
 
     this.setState({ activeIndex: newIndex })
+  }
+
+  handleClickArtAccordion = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeArtIndex } = this.state
+    const newIndex = activeArtIndex === index ? -1 : index
+
+    this.setState({ activeArtIndex: newIndex })
   }
 
 
@@ -149,22 +158,8 @@ class App extends Component {
     try {
 
       await axios.put('http://localhost:8505/api/content/art-likes', ArtObject, axiosConfig)
-            .then(async () => {
-
-                    try {
-                      console.log("Axios with proxy setup in react package.json works as expected");
-                      axios.get('http://localhost:8505/api/content/art-likes').then((gottenBEDataArtLikesFullList) => {
-                        console.log('successful get all art-likes');
-                        this.setState({
-                          MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes
-                        })
-                      }).catch((error) => console.log(error));
-
-                    } catch (error) {
-                      console.log(error);
-                    }
-
-            })
+            .then(this.helperGetAllMetArtLikes()
+            )
             .catch((error) => console.log(error))
 
     } catch (error) {
@@ -172,9 +167,14 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.helperGetAllMetArtLikes()
+  }
+
   render() {
     console.log('App render State MetArtLikes', this.state.MetArtLikes)
     const { activeIndex } = this.state
+    const { activeArtIndex } = this.state
     return (
       <Fragment>
       <div>
@@ -193,12 +193,39 @@ class App extends Component {
         The Metropolitan Museum of Art Collection API
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 1}>
-
-
+      
       <SearchMETArt searchMetApi={this.searchMetApi}  btnType={'submit'} btnClassName={'ui red button'} btnChildren={'Search Art'}/>
-      {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes} />}
-      {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
 
+
+      <Accordion fluid styled >
+      <Accordion.Title
+        active={ activeArtIndex === 1}
+        index={1}
+        onClick={this.handleClickArtAccordion}>
+        <Icon name='dropdown' />
+        The Metropolitan Museum of Art Collection API Likes
+        </Accordion.Title>
+        <Accordion.Content active={activeArtIndex === 1}>
+        
+        {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes}  handleArtLikeSubmit={this.handleArtLikeSubmit} />}
+        
+        </Accordion.Content>
+      
+        <Accordion.Title
+        active={ activeArtIndex ===2}
+        index={2}
+        onClick={this.handleClickArtAccordion}>
+        <Icon name='dropdown' />
+        The Metropolitan Museum of Art Collection API Search Results
+        </Accordion.Title>
+        <Accordion.Content active={activeArtIndex === 2}>
+        
+        {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
+        
+        </Accordion.Content>
+
+        
+      </Accordion>
 
       </Accordion.Content>
 

@@ -25,7 +25,7 @@ const savedArrayProps = props.MetArtLikesArray
                       dimensions={individualObjectArt.data.dimensions}
                       medium={individualObjectArt.data.medium}
                       fullSingleDataArtObject={individualObjectArt}
-                      handleArtLikeSubmit={props.handleArtLikeSubmit}
+                      handleArtDisLikeSubmit={props.handleArtDisLikeSubmit}
                       ></MetArtTile>
 
         )
