@@ -10,7 +10,7 @@ const savedArrayProps = props.MetArtLikesArray
     return (
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
-      <MetArtMainFullScreenSlideShow />
+      
 
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     

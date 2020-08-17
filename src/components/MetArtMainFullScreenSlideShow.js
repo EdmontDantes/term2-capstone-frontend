@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import ImageGallery from 'react-image-gallery';
 
 
-const PREFIX_URL = 'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
 
 class MetArtMainFullScreenSlideShow extends Component {
   constructor() {
@@ -26,36 +25,12 @@ class MetArtMainFullScreenSlideShow extends Component {
       showVideo: {},
     };
 
-    this.images = [
-      {
-        thumbnail: `${PREFIX_URL}4v.jpg`,
-        original: `${PREFIX_URL}4v.jpg`,
-        embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
-        description: 'Render custom slides within the gallery',
-        renderItem: this._renderVideo.bind(this)
-      },
-      {
-        original: `${PREFIX_URL}image_set_default.jpg`,
-        thumbnail: `${PREFIX_URL}image_set_thumb.jpg`,
-        imageSet: [
-          {
-            srcSet: `${PREFIX_URL}image_set_cropped.jpg`,
-            media : '(max-width: 1280px)',
-          },
-          {
-            srcSet: `${PREFIX_URL}image_set_default.jpg`,
-            media : '(min-width: 1280px)',
-          }
-        ]
-      },
-      {
-        original: `${PREFIX_URL}1.jpg`,
-        thumbnail: `${PREFIX_URL}1t.jpg`,
-        originalClass: 'featured-slide',
-        thumbnailClass: 'featured-thumb',
-        description: 'Custom class for slides & thumbnails'
-      },
-    ].concat(this._getStaticImages());
+    this.images = []
+  }
+
+  componentDidMount() {
+    console.log('props for Slideshow in ComponentDidMount', this.props.MetArtLikesSlideShowImages)
+    this.images = this.props.MetArtLikesSlideShowImages
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -68,28 +43,29 @@ class MetArtMainFullScreenSlideShow extends Component {
   }
 
   _onImageClick(event) {
-    console.debug('clicked on image', event.target, 'at index', this._imageGallery.getCurrentIndex());
+    console.log('clicked on image', event.target, 'at index', this._imageGallery.getCurrentIndex());
   }
 
   _onImageLoad(event) {
-    console.debug('loaded image', event.target.src);
+    console.log('loaded image', event.target.src);
   }
 
   _onSlide(index) {
     this._resetVideo();
-    console.debug('slid to index', index);
+    console.log('slid to index', index);
   }
 
   _onPause(index) {
-    console.debug('paused on index', index);
+    console.log('paused on index', index);
+    console.log('props for Slideshow', this.props.MetArtLikesSlideShowImages)
   }
 
   _onScreenChange(fullScreenElement) {
-    console.debug('isFullScreen?', !!fullScreenElement);
+    console.log('isFullScreen?', !!fullScreenElement);
   }
 
   _onPlay(index) {
-    console.debug('playing from index', index);
+    console.log('playing from index', index);
   }
 
   _handleInputChange(state, event) {
@@ -105,15 +81,9 @@ class MetArtMainFullScreenSlideShow extends Component {
   }
 
   _getStaticImages() {
-    let images = [];
-    for (let i = 2; i < 12; i++) {
-      images.push({
-        original: `${PREFIX_URL}${i}.jpg`,
-        thumbnail:`${PREFIX_URL}${i}t.jpg`
-      });
-    }
 
-    return images;
+
+    return this.props.MetArtLikesSlideShowImages;
   }
 
   _resetVideo() {
@@ -186,11 +156,13 @@ class MetArtMainFullScreenSlideShow extends Component {
 
   render() {
     return (
-
-      <div className='ui container' style={{objectFit: 'contain'}}>
+      <div className='ui raised very padded container segment' style={{width: '100%', marginBottom: '40px', paddingTop: '150px'}}>
+      
+      
+      <section className='app'>
         <ImageGallery
           ref={i => this._imageGallery = i}
-          items={this.images}
+          items={this.props.MetArtLikesSlideShowImages}
           lazyLoad={true}
           onClick={this._onImageClick.bind(this)}
           onImageLoad={this._onImageLoad}
@@ -211,7 +183,6 @@ class MetArtMainFullScreenSlideShow extends Component {
           slideInterval={parseInt(this.state.slideInterval)}
           slideOnThumbnailOver={this.state.slideOnThumbnailOver}
           additionalClass="app-image-gallery"
-    
         />
 
         <div className='app-sandbox'>
@@ -336,10 +307,10 @@ class MetArtMainFullScreenSlideShow extends Component {
           </div>
 
         </div>
+      </section>
       </div>
     );
   }
-
 }
 
 export default MetArtMainFullScreenSlideShow

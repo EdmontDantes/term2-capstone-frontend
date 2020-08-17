@@ -7,6 +7,7 @@ import NASAImagesMain from './NASAImagesMain'
 import Footer from './Footer'
 import HeaderCustom from './Header'
 import MetArtMainLikes from './MetArtMainLikes'
+import MetArtMainFullScreenSlideShow from './MetArtMainFullScreenSlideShow'
 import { 
         Accordion, 
         Icon
@@ -18,6 +19,7 @@ class App extends Component {
     MetArtApiData: [],
     toggleMetArtLoading: false,
     MetArtLikes: [],
+    MetArtLikesSlideShowImages: [],
     searchTermNASAImagesApi: '',
     NASAImagesApiData: [],
     toggleNASAImagesLoading: false,
@@ -134,10 +136,21 @@ class App extends Component {
 
     try {
       console.log("Axios with proxy setup in react package.json works as expected");
-      axios.get('http://localhost:8505/api/content/art-likes').then((gottenBEDataArtLikesFullList) => {
+      axios.get('http://localhost:8505/api/content/art-likes').then(async (gottenBEDataArtLikesFullList) => {
+
         console.log('successful get all art-likes');
+        let onlyImagesObjectsForDisplayOnFLSLideShow = []
+        await gottenBEDataArtLikesFullList.data.AllFoundLikes.forEach((individualFullObject) => {
+          onlyImagesObjectsForDisplayOnFLSLideShow.push({
+            original: `${individualFullObject.data.primaryImage}`,
+            thumbnail:`${individualFullObject.data.primaryImageSmall}`
+          })
+        })
+        console.log('App OnlyImagesObjectsForDisplayOnFLSlideSow for helperGetAllMetArtLikes', onlyImagesObjectsForDisplayOnFLSLideShow)
         this.setState({
-          MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes
+          MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes,
+          MetArtLikesSlideShowImages: onlyImagesObjectsForDisplayOnFLSLideShow
+
         })
       }).catch((error) => console.log(error));
 
@@ -226,7 +239,7 @@ class App extends Component {
         The Metropolitan Museum of Art Collection API Likes
         </Accordion.Title>
         <Accordion.Content active={activeArtIndex === 1}>
-        
+        {<MetArtMainFullScreenSlideShow MetArtLikesSlideShowImages={this.state.MetArtLikesSlideShowImages} />}
         {<MetArtMainLikes MetArtLikesArray={this.state.MetArtLikes}  handleArtDisLikeSubmit={this.handleArtDisLikeSubmit} />}
         
         </Accordion.Content>
