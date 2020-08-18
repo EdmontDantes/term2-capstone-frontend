@@ -17,6 +17,7 @@ class App extends Component {
   state = {
     searchTermMetApi: '',
     MetArtApiData: [],
+    MetArtObjectIDsSearchedTotalArray: [],
     toggleMetArtLoading: false,
     MetArtLikes: [],
     MetArtLikesSlideShowImages: [],
@@ -92,7 +93,9 @@ class App extends Component {
         
         this.setState({
           searchTermMetApi: value,
+          MetArtObjectIDsSearchedTotalArray: foundAPIIds.data.objectIDs,
           MetArtApiData: fullListedData,
+
           toggleMetArtLoading: false
           })
         }
@@ -205,14 +208,14 @@ class App extends Component {
   }
 
   render() {
-    console.log('App render State MetArtLikes', this.state.MetArtLikes)
+    console.log('App render State MetArtLikes', this.state.MetArtObjectIDsSearchedTotalArray)
     const { activeIndex } = this.state
     const { activeArtIndex } = this.state
     return (
       <Fragment>
       <div>
 
-      <HeaderCustom />
+      <HeaderCustom Accordion={this.handleClick}/>
 
       <Accordion fluid styled style={{marginTop: '150px', marginBottom: '150px'}}>
 
@@ -253,7 +256,7 @@ class App extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeArtIndex === 2}>
         
-        {<MetArtMain MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
+        {<MetArtMain MetArtObjectIDsSearchedTotalArray={this.state.MetArtObjectIDsSearchedTotalArray} MetArtApiDataToComponent={this.state.MetArtApiData} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
         
         </Accordion.Content>
 
