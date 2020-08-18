@@ -4,16 +4,17 @@ import axios from 'axios';
 import { Icon, Pagination, Segment } from 'semantic-ui-react'
 
 const MetArtMain = (props) => {
-  const pageToDisplayTilesLimit = 10
+  const pageToDisplayTilesLimit = 8
   const savedArrayProps = props.MetArtApiDataToComponent
   const MetArtObjectIDsSearchedTotalArray = [...props.MetArtObjectIDsSearchedTotalArray]
   const [retrievedData, setRetrievedData] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [total, setTotal] = useState(0);
-
-
+  
+  
   useEffect(() => {
     let numOfItemsToPageToRetrieve = Math.ceil(MetArtObjectIDsSearchedTotalArray.length/pageToDisplayTilesLimit)
+    setTotal(numOfItemsToPageToRetrieve)
     let numOfItemsToPageToRetrieveRemainder = MetArtObjectIDsSearchedTotalArray.length % pageToDisplayTilesLimit
     async function getThePagedIndividualResults (batch) {
       const fullListedData = []
@@ -21,15 +22,17 @@ const MetArtMain = (props) => {
                                                                               (batch * pageToDisplayTilesLimit), 
                                                                               ((batch * pageToDisplayTilesLimit) + 
                                                                               pageToDisplayTilesLimit + 1));
-      batchedArrayOfObjectIDs.forEach(async (objectIDtoGetDataAndPush) => {
-        await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectIDtoGetDataAndPush}`)
-              .then(async (individualFullObject) => {
+      for(let i = 0; i < batchedArrayOfObjectIDs.length; i++) {
+        await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${batchedArrayOfObjectIDs[i]}`)
+              .then((individualFullObject) => {
                 // console.log('Axios IndividualFullObject Console.log', individualFullObject)
-                await fullListedData.push(individualFullObject.data)
+                fullListedData.push(individualFullObject.data)
               }).catch((error) => console.log(error))
-      })
-      setRetrievedData(fullListedData)
+
       }
+
+      setRetrievedData(fullListedData)
+    }
     
     let pageIndex = activePage - 1;
     getThePagedIndividualResults(pageIndex)
@@ -39,16 +42,16 @@ const MetArtMain = (props) => {
 
       <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
       {(props.toggleMetArtLoading === true && props.toggleMetArtLoading.length !==0) ?
-      (
-      <div className="ui active dimmer">
-
-        <div className="ui indeterminate text loader">Preparing Results</div>
-
-    </div>) : (<br />)}
+        (
+        <div className="ui active dimmer">
+  
+          <div className="ui indeterminate text loader">Preparing Results</div>
+  
+      </div>) : (<br />)}
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     
         
-        {savedArrayProps.map((individualObjectArt) => {
+        {retrievedData.map((individualObjectArt) => {
           return(
             <MetArtTile 
             key={individualObjectArt.objectID} 
@@ -67,13 +70,17 @@ const MetArtMain = (props) => {
             )
           })}
           
-      <Pagination
-          totalPages={Math.ceil(savedArrayProps.length/pageToDisplayTilesLimit)}
-      >
-      
-      </Pagination>
-        
-        </div>
+          
+          
+          </div>
+          <Pagination
+              totalPages={total}
+              onPageChange={(e, data) => {
+                e.preventDefault()
+                setActivePage(data.activePage)
+              }}
+              activePage={activePage}
+          />
 
       </div>
       )
