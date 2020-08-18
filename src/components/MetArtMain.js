@@ -13,7 +13,7 @@ class MetArtMain extends Component {
   }
 
   setTotal = () => {
-    let numOfItemsToPageToRetrieve = Math.ceil(this.props.MetArtObjectIDsSearchedTotalArray.length/this.state.pageToDisplayTilesLimit)
+    let numOfItemsToPageToRetrieve = Math.ceil(this.props.MetArtObjectIDsSearchedTotalArray.length/this.state.pageToDisplayTilesLimit) - 1
     this.setState({
       totalPages: numOfItemsToPageToRetrieve
     })
@@ -26,8 +26,8 @@ class MetArtMain extends Component {
                                                                             ((batch * this.state.pageToDisplayTilesLimit) + 
                                                                             this.state.pageToDisplayTilesLimit + 1));
     for(let i = 0; i < batchedArrayOfObjectIDs.length; i++) {
-      axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${batchedArrayOfObjectIDs[i]}`)
-            .then((individualFullObject) => {
+      await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${batchedArrayOfObjectIDs[i]}`)
+            .then(async (individualFullObject) => {
               // console.log('Axios IndividualFullObject Console.log', individualFullObject)
               fullListedData.push(individualFullObject.data)
             }).catch((error) => console.log(error))
@@ -35,17 +35,17 @@ class MetArtMain extends Component {
     }
 
     this.setState({
-      retrievedData: fullListedData
+      retrievedData: fullListedData,
+      activePage: batch
     })
   }
 
-  componentDidMount() {
-    this.setTotal()
-  }
+ 
 
   componentDidUpdate(prevProps, prevState) {
     if(prevProps !== this.props) {
       this.setTotal()
+      this.getThePagedIndividualResults(this.state.activePage)
     }
 
 
@@ -93,7 +93,7 @@ class MetArtMain extends Component {
           <Pagination
               totalPages={this.state.totalPages}
               onPageChange={(e, data) => {
-                e.preventDefault()
+              
                 console.log(data);
               
                 this.getThePagedIndividualResults(data.activePage)

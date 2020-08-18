@@ -6,7 +6,7 @@ import MetArtMainFullScreenSlideShow from './MetArtMainFullScreenSlideShow'
 const MetArtMainLikes = (props) => {
 
 
-const savedArrayProps = props.MetArtLikesArray
+
     return (
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
@@ -15,7 +15,7 @@ const savedArrayProps = props.MetArtLikesArray
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     
 
-      {savedArrayProps.map((individualObjectArt) => {
+      {props.MetArtLikesArray.map((individualObjectArt) => {
         return(
           <MetArtTileLikes 
                       key={individualObjectArt.data.objectID} 
