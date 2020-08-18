@@ -11,7 +11,7 @@ class MetArtMainFullScreenSlideShow extends Component {
       showIndex: false,
       showBullets: true,
       infinite: true,
-      showThumbnails: true,
+      showThumbnails: false,
       showFullscreenButton: true,
       showGalleryFullscreenButton: true,
       showPlayButton: true,
@@ -25,13 +25,9 @@ class MetArtMainFullScreenSlideShow extends Component {
       showVideo: {},
     };
 
-    this.images = []
   }
 
-  componentDidMount() {
-    console.log('props for Slideshow in ComponentDidMount', this.props.MetArtLikesSlideShowImages)
-    this.images = this.props.MetArtLikesSlideShowImages
-  }
+
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.slideInterval !== prevState.slideInterval ||
