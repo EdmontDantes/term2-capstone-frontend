@@ -9,8 +9,7 @@ class MetArtMain extends Component {
     retrievedData: [],
     activePage: 1,
     totalPages: 0,
-    pageToDisplayTilesLimit: 10,
-    intermedieryNumberToDisplayTilesLimit: 10
+    pageToDisplayTilesLimit: 10
   }
 
   setTotal = () => {
@@ -57,7 +56,7 @@ class MetArtMain extends Component {
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
       <h1>Your The Metropolitan Museum of Art Collection API search results (Wait nano-seconds to load)</h1>
-      <h3>Input how many items to display per page:</h3>
+
         <div className="ui cards" style={{paddingBottom: '15px'}}>
     
       
