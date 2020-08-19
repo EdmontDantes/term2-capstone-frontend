@@ -1,6 +1,6 @@
 import React from 'react'
 import MetArtTileLikes from './MetArtTileLikes'
-import MetArtMainFullScreenSlideShow from './MetArtMainFullScreenSlideShow'
+
 
 
 const MetArtMainLikes = (props) => {

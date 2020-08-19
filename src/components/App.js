@@ -16,9 +16,7 @@ import {
 class App extends Component {
   state = {
     searchTermMetApi: '',
-    MetArtApiData: [],
     MetArtObjectIDsSearchedTotalArray: [],
-    toggleMetArtLoading: false,
     MetArtLikes: [],
     MetArtLikesSlideShowImages: [],
     searchTermNASAImagesApi: '',
@@ -26,6 +24,7 @@ class App extends Component {
     toggleNASAImagesLoading: false,
     activeIndex: 0,
     activeArtIndex: 0,
+    alreadyLikedMetArtObjectIDs: []
   };
 
 
@@ -69,32 +68,10 @@ class App extends Component {
 
 
 
-          this.loadingShowMetArtAPIResults()
-        //   const arrayToRequestOfApiIds = [...foundAPIIds.data.objectIDs]
-    
-        //   if(foundAPIIds.data.objectIDs.length >= 80) {
-        //     for(let i = 0; i < 80; i++) {
-        //           await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
-        //                 .then((individualFullObject) => {
-        //                   // console.log('Axios IndividualFullObject Console.log', individualFullObject)
-        //                   fullListedData.push(individualFullObject.data)
-        //                 }).catch((error) => console.log(error))
-        //     }
-        //   } else if (foundAPIIds.data.objectIDs.length < 80) {
-        //     for(let i = 0; i < arrayToRequestOfApiIds.length; i++) {
-        //       await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${arrayToRequestOfApiIds[i]}`)
-        //             .then((individualFullObject) => {
-        //               // console.log('Axios IndividualFullObject Console.log', individualFullObject)
-        //               fullListedData.push(individualFullObject.data)
-        //             }).catch((error) => console.log(error))
-        // }
-        //   }
-        // console.log('HELLO AFTER AXOIS PROMISES', fullListedData);
-        
+        this.loadingShowMetArtAPIResults()
         this.setState({
           searchTermMetApi: value,
-          MetArtObjectIDsSearchedTotalArray: foundAPIIds.data.objectIDs,
-          toggleMetArtLoading: false
+          MetArtObjectIDsSearchedTotalArray: foundAPIIds.data.objectIDs
           })
         }
     })
@@ -141,16 +118,19 @@ class App extends Component {
 
         console.log('successful get all art-likes');
         let onlyImagesObjectsForDisplayOnFLSLideShow = []
+        let alreadyLikedMetArt = []
         await gottenBEDataArtLikesFullList.data.AllFoundLikes.forEach((individualFullObject) => {
           onlyImagesObjectsForDisplayOnFLSLideShow.push({
             original: `${individualFullObject.data.primaryImage}`,
             thumbnail:`${individualFullObject.data.primaryImageSmall}`
           })
+          alreadyLikedMetArt.push(individualFullObject.data.objectID)
         })
         console.log('App OnlyImagesObjectsForDisplayOnFLSlideSow for helperGetAllMetArtLikes', onlyImagesObjectsForDisplayOnFLSLideShow)
         this.setState({
           MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes,
-          MetArtLikesSlideShowImages: onlyImagesObjectsForDisplayOnFLSLideShow
+          MetArtLikesSlideShowImages: onlyImagesObjectsForDisplayOnFLSLideShow,
+          alreadyLikedMetArtObjectIDs: alreadyLikedMetArt
 
         })
       }).catch((error) => console.log(error));
@@ -175,7 +155,7 @@ class App extends Component {
             .then(this.helperGetAllMetArtLikes()
             )
             .catch((error) => console.log(error))
-
+    
     } catch (error) {
       console.log(error);
     }
@@ -201,12 +181,13 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
     this.helperGetAllMetArtLikes()
   }
 
   render() {
-    console.log('App render State MetArtLikes', this.state.MetArtObjectIDsSearchedTotalArray)
+    console.log('App render State MetArtLikes', this.state.alreadyLikedMetArtObjectIDs)
     const { activeIndex } = this.state
     const { activeArtIndex } = this.state
     return (
@@ -254,7 +235,7 @@ class App extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeArtIndex === 2}>
         
-        {<MetArtMain MetArtObjectIDsSearchedTotalArray={this.state.MetArtObjectIDsSearchedTotalArray} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
+        {<MetArtMain alreadyLikedMetArtObjectIDs={this.state.alreadyLikedMetArtObjectIDs} MetArtObjectIDsSearchedTotalArray={this.state.MetArtObjectIDsSearchedTotalArray} toggleMetArtLoading={this.state.toggleMetArtLoading} handleArtLikeSubmit={this.handleArtLikeSubmit} />}
         
         </Accordion.Content>
 
