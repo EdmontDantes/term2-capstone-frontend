@@ -94,7 +94,7 @@ class App extends Component {
       await axios.get(`https://images-api.nasa.gov/search?q=${value}`)
       .then(async (foundData) => {
         this.loadingShowNASAImagesResults()
-        const fullListedDataNASA = [...foundData.data.collection.items.slice(0,40)]
+        const fullListedDataNASA = [...foundData.data.collection.items]
       console.log('HELLO AFTER AXOIS PROMISES FOR NASA', fullListedDataNASA);
       
       this.setState({

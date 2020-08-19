@@ -8,7 +8,7 @@ const MetArtMain = (props) => {
     return (
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 
-      <h1>Your The Metropolitan Museum of Art Collection API search results</h1>
+      <h1>Your NASA Images Results</h1>
       {(props.toggleNASAImagesLoading === true) ?
       (
       <div className="ui active dimmer">
@@ -24,7 +24,10 @@ const MetArtMain = (props) => {
           if(individualArrayOfMedia.links !== undefined) {
             
             return(
-              <NASATile key={idx} image={individualArrayOfMedia.links[0].href}></NASATile>
+              <NASATile 
+              key={idx} 
+              image={individualArrayOfMedia.links[0].href} 
+              dataInfo={individualArrayOfMedia.data}></NASATile>
             )
 
           }

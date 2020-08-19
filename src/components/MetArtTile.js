@@ -7,13 +7,6 @@ const MetArtTile = (props) => {
   const [open, setOpen] = React.useState(false)
   return (
 
-
-
-
-
-    
-
-
       <div className="ui centered card">
   
       <div className="image">
