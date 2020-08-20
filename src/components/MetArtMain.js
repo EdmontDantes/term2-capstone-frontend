@@ -13,7 +13,7 @@ class MetArtMain extends Component {
   }
 
   setTotal = () => {
-    let numOfItemsToPageToRetrieve = Math.ceil(this.props.MetArtObjectIDsSearchedTotalArray.length/this.state.pageToDisplayTilesLimit) - 1
+    let numOfItemsToPageToRetrieve = Math.ceil(this.props.MetArtObjectIDsSearchedTotalArray.length/this.state.pageToDisplayTilesLimit)
     this.setState({
       totalPages: numOfItemsToPageToRetrieve
     })
@@ -86,8 +86,7 @@ class MetArtMain extends Component {
           <Pagination
               totalPages={this.state.totalPages}
               onPageChange={(e, data) => {
-              
-                console.log(data);
+
               
                 this.getThePagedIndividualResults(data.activePage)
               }}
