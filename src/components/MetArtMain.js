@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MetArtTile from './MetArtTile'
 import axios from 'axios';
 import { Pagination } from 'semantic-ui-react'
-
+import PropTypes from 'prop-types'
 
 class MetArtMain extends Component {
   state = {
@@ -102,3 +102,10 @@ class MetArtMain extends Component {
 
 
 export default MetArtMain
+
+MetArtMain.propTypes = {
+  alreadyLikedMetArtObjectIDs: PropTypes.array,
+  MetArtObjectIDsSearchedTotalArray: PropTypes.array,
+  toggleMetArtLoading: PropTypes.bool,
+  handleArtLikeSubmit: PropTypes.func
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import ButtonCustom from './ButtonCustom'
+import PropTypes from 'prop-types'
 
 const MetArtTile = (props) => {
 
@@ -68,3 +69,18 @@ const MetArtTile = (props) => {
 }
 
 export default MetArtTile
+
+MetArtTile.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  artist: PropTypes.string,
+  imageOriginal: PropTypes.string,
+  objectDate: PropTypes.string,
+  artistDisplayName: PropTypes.string,
+  dimensions: PropTypes.string,
+  medium: PropTypes.string,
+  fullSingleDataArtObject: PropTypes.object,
+  handleArtLikeSubmit: PropTypes.func,
+  alreadyLikedObjectIDsArray: PropTypes.array,
+  objectId: PropTypes.string
+}

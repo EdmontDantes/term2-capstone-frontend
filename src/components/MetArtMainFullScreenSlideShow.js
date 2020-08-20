@@ -9,7 +9,7 @@ class MetArtMainFullScreenSlideShow extends Component {
     super();
     this.state = {
       showIndex: false,
-      showBullets: true,
+      showBullets: false,
       infinite: true,
       showThumbnails: false,
       showFullscreenButton: true,
@@ -18,8 +18,8 @@ class MetArtMainFullScreenSlideShow extends Component {
       showGalleryPlayButton: true,
       showNav: true,
       isRTL: false,
-      slideDuration: 450,
-      slideInterval: 2000,
+      slideDuration: 650,
+      slideInterval: 3700,
       slideOnThumbnailOver: false,
       thumbnailPosition: 'bottom',
       showVideo: {},
@@ -94,61 +94,6 @@ class MetArtMainFullScreenSlideShow extends Component {
     }
   }
 
-  _toggleShowVideo(url) {
-    this.state.showVideo[url] = !Boolean(this.state.showVideo[url]);
-    this.setState({
-      showVideo: this.state.showVideo
-    });
-
-    if (this.state.showVideo[url]) {
-      if (this.state.showPlayButton) {
-        this.setState({showGalleryPlayButton: false});
-      }
-
-      if (this.state.showFullscreenButton) {
-        this.setState({showGalleryFullscreenButton: false});
-      }
-    }
-  }
-
-  _renderVideo(item) {
-    return (
-      <div>
-        {
-          this.state.showVideo[item.embedUrl] ?
-            <div className='video-wrapper'>
-                <a
-                  className='close-video'
-                  onClick={this._toggleShowVideo.bind(this, item.embedUrl)}
-                >
-                </a>
-                <iframe
-                  width='560'
-                  height='315'
-                  src={item.embedUrl}
-                  frameBorder='0'
-                  allowFullScreen
-                >
-                </iframe>
-            </div>
-          :
-            <a onClick={this._toggleShowVideo.bind(this, item.embedUrl)}>
-              <div className='play-button'></div>
-              <img className='image-gallery-image' src={item.original} />
-              {
-                item.description &&
-                  <span
-                    className='image-gallery-description'
-                    style={{right: '0', left: 'initial'}}
-                  >
-                    {item.description}
-                  </span>
-              }
-            </a>
-        }
-      </div>
-    );
-  }
 
   render() {
     return (

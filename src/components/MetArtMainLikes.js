@@ -1,6 +1,6 @@
 import React from 'react'
 import MetArtTileLikes from './MetArtTileLikes'
-
+import PropTypes from 'prop-types'
 
 
 const MetArtMainLikes = (props) => {
@@ -28,7 +28,6 @@ const MetArtMainLikes = (props) => {
                       artistDisplayName={individualObjectArt.data.artistDisplayName}
                       dimensions={individualObjectArt.data.dimensions}
                       medium={individualObjectArt.data.medium}
-                      fullSingleDataArtObject={individualObjectArt}
                       handleArtDisLikeSubmit={props.handleArtDisLikeSubmit}
                       ></MetArtTileLikes>
 
@@ -45,3 +44,8 @@ const MetArtMainLikes = (props) => {
 
 
 export default MetArtMainLikes
+
+MetArtMainLikes.propTypes = {
+  MetArtLikesArray: PropTypes.array,
+  handleArtDisLikeSubmit: PropTypes.func
+}
