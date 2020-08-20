@@ -8,9 +8,7 @@ class Search extends Component {
     };
   }
   onChangeSearchValue = (event) => {
-    // event.preventDefault()
     let newSearchTerm = event.target.value;
-    console.log(newSearchTerm);
     this.setState(
       {
         searchTermNASAImagesApi: newSearchTerm

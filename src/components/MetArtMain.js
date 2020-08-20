@@ -15,8 +15,7 @@ class MetArtMain extends Component {
   setTotal = () => {
     let numOfItemsToPageToRetrieve = Math.ceil(this.props.MetArtObjectIDsSearchedTotalArray.length/this.state.pageToDisplayTilesLimit) - 1
     this.setState({
-      totalPages: numOfItemsToPageToRetrieve,
-      updateComponentToNewPagination: false
+      totalPages: numOfItemsToPageToRetrieve
     })
   }
 
@@ -51,7 +50,6 @@ class MetArtMain extends Component {
   }
 
   render() {
-    console.log('Render MEtArtMain class Component converted');
     return (
       <div className="ui raised very padded container segment" style={{width: '100%', marginBottom: '40px'}}>
 

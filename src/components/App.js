@@ -113,7 +113,6 @@ class App extends Component {
   helperGetAllMetArtLikes = async () => {
 
     try {
-      console.log("Axios with proxy setup in react package.json works as expected");
       axios.get('http://localhost:8505/api/content/art-likes').then(async (gottenBEDataArtLikesFullList) => {
 
         console.log('successful get all art-likes');
@@ -126,7 +125,6 @@ class App extends Component {
           })
           alreadyLikedMetArt.push(individualFullObject.data.objectID)
         })
-        console.log('App OnlyImagesObjectsForDisplayOnFLSlideSow for helperGetAllMetArtLikes', onlyImagesObjectsForDisplayOnFLSLideShow)
         this.setState({
           MetArtLikes: gottenBEDataArtLikesFullList.data.AllFoundLikes,
           MetArtLikesSlideShowImages: onlyImagesObjectsForDisplayOnFLSLideShow,
@@ -187,7 +185,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('App render State MetArtLikes', this.state.alreadyLikedMetArtObjectIDs)
     const { activeIndex } = this.state
     const { activeArtIndex } = this.state
     return (
@@ -263,19 +260,6 @@ class App extends Component {
 
     <Footer />
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       </Fragment>
     );
