@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-
 import ImageGallery from 'react-image-gallery';
-
+import PropTypes from 'prop-types'
 
 
 class MetArtMainFullScreenSlideShow extends Component {
@@ -255,3 +254,7 @@ class MetArtMainFullScreenSlideShow extends Component {
 }
 
 export default MetArtMainFullScreenSlideShow
+
+MetArtMainFullScreenSlideShow.propTypes = {
+  MetArtLikesSlideShowImages: PropTypes.array
+}

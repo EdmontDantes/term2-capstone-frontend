@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ButtonCustom from './ButtonCustom';
+import PropTypes from 'prop-types'
 class Search extends Component {
   constructor() {
     super();
@@ -65,3 +66,10 @@ class Search extends Component {
   }
 }
 export default Search;
+
+Search.propTypes = {
+  searchNASAImagesApi: PropTypes.func,
+  btnType: PropTypes.string,
+  btnClassName: PropTypes.string,
+  btnChildren: PropTypes.string
+}

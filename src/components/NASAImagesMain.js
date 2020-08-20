@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NASATile from './NASATile'
 import { Pagination } from 'semantic-ui-react'
-
+import PropTypes from 'prop-types'
 
 class NASAImagesMain extends Component {
 
@@ -89,3 +89,7 @@ class NASAImagesMain extends Component {
 
 export default NASAImagesMain
 
+NASAImagesMain.propTypes = {
+  NASAImagesApiData: PropTypes.array,
+  toggleNASAImagesLoading: PropTypes.bool
+}
