@@ -11,5 +11,23 @@ This is public no API key NASA images search that will yield approximately 100 r
 This is public Numbers API trivia where you can input a number and choose category to display trivia facts about inputted number.
 
 ## Visual Guide
+#### homepage
+![Homepage](public/images/READMEassets/1-homepage-updated.png)
+#### Navigating Widget 1
+![navigationMet](public/images/READMEassets/2-navigation-for-MetArt-update.png)
+#### Widget 1 liked navigation
+![likedItemsAndSlideshow](public/images/READMEassets/2-1-navigation-for-liked-and-slideshow.png)
+#### Widget 2 NASA images
+![NASAImages](public/images/READMEassets/3-NASA-widget.png)
+#### Widget 3 Numbers Trivia
+![NumbersTrivia](public/images/READMEassets/4-Numbers-widget.png)
+    
 
-![Homepage](/public/images/READMEassets/1-homepage.png)
+## Additional information      
+
+
+Please make sure that you are using .env file in backend. Port has to be 8505 as it is hardcoded in the frontend unless you want to change it then refer to App.js in component directory file to change the links to backend routes.
+```
+PORT = 8505
+MONGODB_URI = 'mongodb://localhost/term2-capstone'
+```
