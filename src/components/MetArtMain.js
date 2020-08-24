@@ -21,10 +21,12 @@ class MetArtMain extends Component {
 
   getThePagedIndividualResults = async (batch) => {
     const fullListedData = []
-    const batchedArrayOfObjectIDs = this.props.MetArtObjectIDsSearchedTotalArray.slice(
+    const batchedArrayOfObjectIDs = (this.state.activePage === 1) ? 
+                                    (this.props.MetArtObjectIDsSearchedTotalArray.slice(0, this.state.pageToDisplayTilesLimit)) :
+                                     (this.props.MetArtObjectIDsSearchedTotalArray.slice(
                                                                             (batch * this.state.pageToDisplayTilesLimit), 
                                                                             ((batch * this.state.pageToDisplayTilesLimit) + 
-                                                                            this.state.pageToDisplayTilesLimit + 1));
+                                                                            this.state.pageToDisplayTilesLimit + 1)));
     for(let i = 0; i < batchedArrayOfObjectIDs.length; i++) {
       await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${batchedArrayOfObjectIDs[i]}`)
             .then(async (individualFullObject) => {

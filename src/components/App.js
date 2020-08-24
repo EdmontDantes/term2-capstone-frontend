@@ -8,6 +8,8 @@ import Footer from './Footer'
 import HeaderCustom from './Header'
 import MetArtMainLikes from './MetArtMainLikes'
 import MetArtMainFullScreenSlideShow from './MetArtMainFullScreenSlideShow'
+import SearchNumbersTrivia from './SearchNumbersTrivia'
+import NumbersTrivia from './NumbersTrivial'
 import { 
         Accordion, 
         Icon
@@ -24,7 +26,8 @@ class App extends Component {
     toggleNASAImagesLoading: false,
     activeIndex: 0,
     activeArtIndex: 0,
-    alreadyLikedMetArtObjectIDs: []
+    alreadyLikedMetArtObjectIDs: [],
+    NumberTriviaFact: ''
   };
 
 
@@ -45,6 +48,7 @@ class App extends Component {
   }
 
 
+
   loadingShowMetArtAPIResults = () => {
     this.setState({
       MetArtApiData: [],
@@ -60,8 +64,6 @@ class App extends Component {
 
 
       event.preventDefault()
-      // console.log('value', value);
-      const fullListedData = []
       await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${value}`)
       .then(async (foundAPIIds) => {
         if(foundAPIIds.data.objectIDs) {
@@ -179,6 +181,24 @@ class App extends Component {
     }
   }
 
+  searchNumbersApi = async (event, value, select) => {
+    if(value !== '') {
+      event.preventDefault()
+      await axios.get(`http://numbersapi.com/${value}/${select}`)
+      .then(async (foundData) => {
+        const triviaFact = foundData.data
+
+        this.setState({
+          NumberTriviaFact: triviaFact
+          })
+      })
+    .catch((error) => console.log(error))
+
+    }
+  
+  }
+
+
 
   componentDidMount() {
     this.helperGetAllMetArtLikes()
@@ -256,6 +276,21 @@ class App extends Component {
       {<NASAImagesMain NASAImagesApiData={this.state.NASAImagesApiData} toggleNASAImagesLoading={this.state.toggleNASAImagesLoading} />}
 
       </Accordion.Content>
+      <Accordion.Title
+      active={activeIndex === 3}
+      index={3}
+      onClick={this.handleClick}
+    id='NumbersWidget'>
+      <Icon name='dropdown' />
+      Numbers API Trivia facts about numbers
+    </Accordion.Title>
+    <Accordion.Content active={activeIndex === 3}>
+
+    <SearchNumbersTrivia searchNumbersApi={this.searchNumbersApi} btnType={'submit'} btnClassName={'ui green button'} btnChildren={'Request Trivia'}/>
+    <h1>Your results of Numbers Search trivia</h1>
+    <NumbersTrivia resultNumberTriviaFact = {this.state.NumberTriviaFact}/>
+
+    </Accordion.Content>
     </Accordion>
 
     <Footer />

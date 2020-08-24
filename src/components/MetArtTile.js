@@ -82,5 +82,5 @@ MetArtTile.propTypes = {
   fullSingleDataArtObject: PropTypes.object,
   handleArtLikeSubmit: PropTypes.func,
   alreadyLikedObjectIDsArray: PropTypes.array,
-  objectId: PropTypes.string
+  objectId: PropTypes.number
 }

@@ -77,7 +77,7 @@ const MetArtTileLikes = (props) => {
 export default MetArtTileLikes
 
 MetArtTileLikes.propTypes = {
-  objectID: PropTypes.string,
+  objectID: PropTypes.number,
   image: PropTypes.string,
   title: PropTypes.string,
   artist: PropTypes.string,
